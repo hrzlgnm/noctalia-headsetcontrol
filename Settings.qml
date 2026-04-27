@@ -74,8 +74,8 @@ Item {
         if (pluginApi && pluginApi.mainInstance) {
           var lvl = pluginApi.pluginSettings.lastSidetone || 64
           var p = Qt.createQmlObject(
-            'import Quickshell.Io; Process { command: ["/usr/bin/headsetcontrol", "-s", "' + lvl + '"]; running: true; ' +
-            'stdout: StdioCollector { onStreamFinished: function() { this.parent.destroy() } } stderr: StdioCollector { } }',
+            'import Quickshell.Io; Process { id: p; command: ["/usr/bin/headsetcontrol", "-s", "' + lvl + '"]; running: true; ' +
+            'stdout: StdioCollector { onStreamFinished: function() { p.destroy() } } stderr: StdioCollector { } }',
             root, "applySidetone")
         }
       }
