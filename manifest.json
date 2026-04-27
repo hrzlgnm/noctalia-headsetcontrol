@@ -3,9 +3,9 @@
   "name": "HeadsetControl",
   "version": "1.0.0",
   "minNoctaliaVersion": "3.6.0",
-  "author": "noctalia-headsetcontrol",
+  "author": "hrzlgnm",
   "license": "GPL-3.0",
-  "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+  "repository": "https://github.com/hrzlgnm/noctalia-headsetcontrol",
   "description": "Control wireless headsets via HeadsetControl (sidetone, battery, LED, equalizer, chatmix, and more)",
   "tags": ["Bar", "Panel"],
   "entryPoints": {
