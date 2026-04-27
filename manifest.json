@@ -1,0 +1,29 @@
+{
+  "id": "headsetcontrol",
+  "name": "HeadsetControl",
+  "version": "1.0.0",
+  "minNoctaliaVersion": "3.6.0",
+  "author": "noctalia-headsetcontrol",
+  "license": "GPL-3.0",
+  "repository": "https://github.com/noctalia-dev/noctalia-plugins",
+  "description": "Control wireless headsets via HeadsetControl (sidetone, battery, LED, equalizer, chatmix, and more)",
+  "tags": ["Bar", "Panel"],
+  "entryPoints": {
+    "main": "Main.qml",
+    "barWidget": "BarWidget.qml",
+    "panel": "Panel.qml",
+    "settings": "Settings.qml"
+  },
+  "dependencies": {
+    "plugins": []
+  },
+  "metadata": {
+    "defaultSettings": {
+      "pollingInterval": 30,
+      "showBatteryInBar": true,
+      "barShowPercentage": true,
+      "lastSidetone": 64,
+      "lastEqPreset": 0
+    }
+  }
+}
