@@ -11,6 +11,7 @@ Item {
   property ShellScreen screen
 
   readonly property var mainInstance: pluginApi ? pluginApi.mainInstance : null
+  readonly property var capabilities: mainInstance ? mainInstance.capabilities : ({})
   readonly property bool isConnected: mainInstance ? mainInstance.isConnected : false
   readonly property int batteryLevel: mainInstance ? mainInstance.batteryLevel : -1
   readonly property string batteryStatus: mainInstance ? mainInstance.batteryStatus : "BATTERY_UNAVAILABLE"
@@ -80,11 +81,11 @@ Item {
       }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Sidetone"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    // Sidetone
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_SIDETONE"] }
+    NText { text: "Sidetone"; visible: root.isConnected && root.capabilities["CAP_SIDETONE"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
     RowLayout {
-      visible: root.isConnected; spacing: 6
+      visible: root.isConnected && root.capabilities["CAP_SIDETONE"]; spacing: 6
       NSlider {
         id: sidetoneSlider; Layout.fillWidth: true; from: 0; to: 128; stepSize: 1
         value: pluginApi && pluginApi.pluginSettings ? pluginApi.pluginSettings.lastSidetone || 64 : 64
@@ -93,63 +94,63 @@ Item {
       NText { text: Math.round(sidetoneSlider.value); font.pixelSize: 11; color: Color.mOnSurfaceVariant; Layout.minimumWidth: 30; horizontalAlignment: Text.AlignRight }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Lights"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
-    RowLayout { visible: root.isConnected; spacing: 8
+    // Lights
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_LIGHTS"] }
+    NText { text: "Lights"; visible: root.isConnected && root.capabilities["CAP_LIGHTS"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    RowLayout { visible: root.isConnected && root.capabilities["CAP_LIGHTS"]; spacing: 8
       NButton { text: "On"; onClicked: root.sendCommand(["-l", "1"]) }
       NButton { text: "Off"; onClicked: root.sendCommand(["-l", "0"]) }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Auto-Off Timer (min)"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
-    RowLayout { visible: root.isConnected; spacing: 6
+    // Auto-Off Timer
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_INACTIVE_TIME"] }
+    NText { text: "Auto-Off Timer (min)"; visible: root.isConnected && root.capabilities["CAP_INACTIVE_TIME"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    RowLayout { visible: root.isConnected && root.capabilities["CAP_INACTIVE_TIME"]; spacing: 6
       NSlider { id: inactiveSlider; Layout.fillWidth: true; from: 0; to: 120; stepSize: 1; value: 30
         onMoved: root.sendCommand(["-i", String(value)]) }
       NText { text: Math.round(inactiveSlider.value); font.pixelSize: 11; color: Color.mOnSurfaceVariant; Layout.minimumWidth: 30; horizontalAlignment: Text.AlignRight }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Equalizer Preset"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
-    RowLayout { visible: root.isConnected; spacing: 8
+    // Equalizer Preset
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_EQUALIZER_PRESET"] }
+    NText { text: "Equalizer Preset"; visible: root.isConnected && root.capabilities["CAP_EQUALIZER_PRESET"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    RowLayout { visible: root.isConnected && root.capabilities["CAP_EQUALIZER_PRESET"]; spacing: 8
       NButton { text: "0"; onClicked: { root.sendCommand(["-p", "0"]); if (pluginApi) pluginApi.pluginSettings.lastEqPreset = 0 } }
       NButton { text: "1"; onClicked: { root.sendCommand(["-p", "1"]); if (pluginApi) pluginApi.pluginSettings.lastEqPreset = 1 } }
       NButton { text: "2"; onClicked: { root.sendCommand(["-p", "2"]); if (pluginApi) pluginApi.pluginSettings.lastEqPreset = 2 } }
       NButton { text: "3"; onClicked: { root.sendCommand(["-p", "3"]); if (pluginApi) pluginApi.pluginSettings.lastEqPreset = 3 } }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Voice Prompts"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
-    RowLayout { visible: root.isConnected; spacing: 8
+    // Voice Prompts
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_VOICE_PROMPTS"] }
+    NText { text: "Voice Prompts"; visible: root.isConnected && root.capabilities["CAP_VOICE_PROMPTS"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    RowLayout { visible: root.isConnected && root.capabilities["CAP_VOICE_PROMPTS"]; spacing: 8
       NButton { text: "Enable"; onClicked: root.sendCommand(["-v", "1"]) }
       NButton { text: "Disable"; onClicked: root.sendCommand(["-v", "0"]) }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Microphone LED"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
-    RowLayout { visible: root.isConnected; spacing: 6
+    // Microphone LED Brightness
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_MICROPHONE_MUTE_LED_BRIGHTNESS"] }
+    NText { text: "Microphone LED"; visible: root.isConnected && root.capabilities["CAP_MICROPHONE_MUTE_LED_BRIGHTNESS"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    RowLayout { visible: root.isConnected && root.capabilities["CAP_MICROPHONE_MUTE_LED_BRIGHTNESS"]; spacing: 6
       NSlider { id: micLedSlider; Layout.fillWidth: true; from: 0; to: 100; stepSize: 1; value: 50
         onMoved: root.sendCommand(["--microphone-mute-led-brightness", String(value)]) }
       NText { text: Math.round(micLedSlider.value); font.pixelSize: 11; color: Color.mOnSurfaceVariant; Layout.minimumWidth: 30; horizontalAlignment: Text.AlignRight }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Volume Limiter"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
-    RowLayout { visible: root.isConnected; spacing: 8
+    // Volume Limiter
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_VOLUME_LIMITER"] }
+    NText { text: "Volume Limiter"; visible: root.isConnected && root.capabilities["CAP_VOLUME_LIMITER"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    RowLayout { visible: root.isConnected && root.capabilities["CAP_VOLUME_LIMITER"]; spacing: 8
       NButton { text: "On"; onClicked: root.sendCommand(["--volume-limiter", "1"]) }
       NButton { text: "Off"; onClicked: root.sendCommand(["--volume-limiter", "0"]) }
     }
 
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
-    NText { text: "Chatmix"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    // Chatmix
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected && root.capabilities["CAP_CHATMIX_STATUS"] }
+    NText { text: "Chatmix"; visible: root.isConnected && root.capabilities["CAP_CHATMIX_STATUS"]; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
     NText {
-      visible: root.isConnected
+      visible: root.isConnected && root.capabilities["CAP_CHATMIX_STATUS"]
       font.pixelSize: 11; color: Color.mOnSurfaceVariant
       text: {
         if (!mainInstance) return "N/A"
@@ -159,16 +160,16 @@ Item {
       }
     }
 
+    // Notification Sound
     Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
     NText { text: "Notification Sound"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
     RowLayout { visible: root.isConnected; spacing: 8
       NButton { text: "0"; onClicked: root.sendCommand(["-n", "0"]) }
       NButton { text: "1"; onClicked: root.sendCommand(["-n", "1"]) }
     }
 
+    // Bluetooth
     Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutlineVariant; visible: root.isConnected }
-
     NText { text: "Bluetooth"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
     RowLayout { visible: root.isConnected; spacing: 8
       NButton { text: "Power On: On"; onClicked: root.sendCommand(["--bt-when-powered-on", "1"]) }
