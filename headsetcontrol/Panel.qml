@@ -186,9 +186,9 @@ Item {
     }
 
     // Notification Sound
-    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutline ?? "#49454f"; visible: root.isConnected }
-    NText { text: "Notification Sound"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
-    RowLayout { visible: root.isConnected; spacing: 8
+    Rectangle { Layout.fillWidth: true; height: 1; color: Color.mOutline ?? "#49454f"; visible: root.isConnected && (root.capabilities["CAP_NOTIFICATION_SOUND"] ?? false) }
+    NText { text: "Notification Sound"; visible: root.isConnected && (root.capabilities["CAP_NOTIFICATION_SOUND"] ?? false); font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
+    RowLayout { visible: root.isConnected && (root.capabilities["CAP_NOTIFICATION_SOUND"] ?? false); spacing: 8
       NButton { text: "0"; onClicked: root.sendCommand(["-n", "0"]) }
       NButton { text: "1"; onClicked: root.sendCommand(["-n", "1"]) }
     }
