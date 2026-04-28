@@ -1,6 +1,5 @@
 import QtQuick
 import QtQuick.Layouts
-import QtQuick.Controls 2.5
 import Quickshell
 import qs.Commons
 import qs.Widgets
@@ -85,7 +84,7 @@ Item {
     NText { text: "Sidetone"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
     RowLayout {
       visible: root.isConnected; spacing: 6
-      Slider {
+      NSlider {
         id: sidetoneSlider; Layout.fillWidth: true; from: 0; to: 128; stepSize: 1
         value: pluginApi && pluginApi.pluginSettings ? pluginApi.pluginSettings.lastSidetone || 64 : 64
         onMoved: { root.sendCommand(["-s", String(value)]); if (pluginApi) pluginApi.pluginSettings.lastSidetone = Math.round(value) }
@@ -105,7 +104,7 @@ Item {
 
     NText { text: "Auto-Off Timer (min)"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
     RowLayout { visible: root.isConnected; spacing: 6
-      Slider { id: inactiveSlider; Layout.fillWidth: true; from: 0; to: 120; stepSize: 1; value: 30
+      NSlider { id: inactiveSlider; Layout.fillWidth: true; from: 0; to: 120; stepSize: 1; value: 30
         onMoved: root.sendCommand(["-i", String(value)]) }
       NText { text: Math.round(inactiveSlider.value); font.pixelSize: 11; color: Color.mOnSurfaceVariant; Layout.minimumWidth: 30; horizontalAlignment: Text.AlignRight }
     }
@@ -132,7 +131,7 @@ Item {
 
     NText { text: "Microphone LED"; visible: root.isConnected; font.pixelSize: 13; color: Color.mOnSurface; font.weight: Font.Bold }
     RowLayout { visible: root.isConnected; spacing: 6
-      Slider { id: micLedSlider; Layout.fillWidth: true; from: 0; to: 100; stepSize: 1; value: 50
+      NSlider { id: micLedSlider; Layout.fillWidth: true; from: 0; to: 100; stepSize: 1; value: 50
         onMoved: root.sendCommand(["--microphone-mute-led-brightness", String(value)]) }
       NText { text: Math.round(micLedSlider.value); font.pixelSize: 11; color: Color.mOnSurfaceVariant; Layout.minimumWidth: 30; horizontalAlignment: Text.AlignRight }
     }
@@ -176,7 +175,7 @@ Item {
     }
     RowLayout { visible: root.isConnected; spacing: 6
       NText { text: "Call Volume"; font.pixelSize: 11; color: Color.mOnSurfaceVariant }
-      Slider { id: btVolSlider; Layout.fillWidth: true; from: 0; to: 100; stepSize: 1; value: 50
+      NSlider { id: btVolSlider; Layout.fillWidth: true; from: 0; to: 100; stepSize: 1; value: 50
         onMoved: root.sendCommand(["--bt-call-volume", String(value)]) }
     }
 
