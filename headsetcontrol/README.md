@@ -40,9 +40,10 @@ sudo udevadm control --reload-rules && sudo udevadm trigger
 
 ## Installation
 
-Copy this plugin to your Noctalia plugins directory:
+Create a symlink to this plugin in your Noctalia plugins directory:
+
 ```bash
-cp -r noctalia-headsetcontrol ~/.config/noctalia/plugins/
+ln -s $(pwd) ~/.config/noctalia/plugins/headsetcontrol
 ```
 
 Then enable it in Noctalia Settings > Plugins.
