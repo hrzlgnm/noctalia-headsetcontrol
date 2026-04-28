@@ -10,6 +10,7 @@ Item {
   property int batteryLevel: -1
   property string batteryStatus: "BATTERY_UNAVAILABLE"
   property bool isConnected: false
+  readonly property bool isCharging: batteryStatus === "BATTERY_CHARGING"
   property int chatmixLevel: -1
   property var capabilities: ({})
   property bool capabilitiesLoaded: false
@@ -35,8 +36,18 @@ Item {
         root.chatmixLevel = -1
         return
       }
-      root.isConnected = true
       var dev = json.devices[0]
+      var batteryUnavailable = !dev.battery || dev.battery.status === "BATTERY_UNAVAILABLE"
+      if (batteryUnavailable) {
+        root.isConnected = false
+        root.capabilities = {}
+        root.capabilitiesLoaded = false
+        root.batteryLevel = -1
+        root.batteryStatus = "BATTERY_UNAVAILABLE"
+        root.chatmixLevel = -1
+        return
+      }
+      root.isConnected = true
       if (full) {
         var caps = {}
         if (dev.capabilities) {
@@ -53,7 +64,7 @@ Item {
       if (dev.chatmix !== undefined)
         root.chatmixLevel = dev.chatmix
     } catch(e) {
-      console.log("HeadsetControl: parse error:", e)
+      Logger.e("HeadsetControl: parse error:", e)
     }
   }
 
@@ -71,7 +82,7 @@ Item {
     stderr: StdioCollector {
       id: errCollector
       onStreamFinished: {
-        if (errCollector.text) console.log("HC: stderr=" + errCollector.text)
+        if (errCollector.text) Logger.w("HC: stderr=" + errCollector.text)
       }
     }
   }
@@ -111,7 +122,7 @@ Item {
   Timer {
     id: pollTimer
     interval: root.pollingInterval * 1000
-    running: root.pollingInterval > 0 && root.isConnected
+    running: root.pollingInterval > 0
     repeat: true
     onTriggered: root.updateBatteryChatmix()
   }

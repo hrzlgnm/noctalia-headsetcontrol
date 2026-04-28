@@ -24,14 +24,12 @@ Item {
 
   readonly property int batteryLevel: pluginApi && pluginApi.mainInstance ? pluginApi.mainInstance.batteryLevel : -1
   readonly property bool isConnected: pluginApi && pluginApi.mainInstance ? pluginApi.mainInstance.isConnected : false
+  readonly property bool isCharging: pluginApi && pluginApi.mainInstance ? pluginApi.mainInstance.isCharging : false
   readonly property bool showPercentage: pluginApi && pluginApi.pluginSettings ? pluginApi.pluginSettings.barShowPercentage !== false : true
 
-  function batteryColor(level) {
-    if (level < 0) return "#666666"
-    if (level < 20) return "#ef4444"
-    if (level < 50) return "#eab308"
-    return "#22c55e"
-  }
+  readonly property bool batteryReady: root.isConnected && root.batteryLevel >= 0
+  readonly property bool batteryLow: root.batteryLevel > 0 && root.batteryLevel < 20
+  readonly property bool batteryCritical: root.batteryLevel >= 0 && root.batteryLevel < 10
 
   Rectangle {
     id: visualCapsule
@@ -50,14 +48,27 @@ Item {
         icon: root.isConnected ? "headset" : "headset-off"
         width: root.barFontSize
         height: root.barFontSize
-        color: root.isConnected ? "#ffffff" : "#666666"
+        color: root.isConnected ? Color.mOnSurface : Qt.rgba(1,1,1,0.4)
+      }
+
+      NBattery {
+        visible: root.showPercentage
+        percentage: Math.max(0, root.batteryLevel)
+        charging: root.isCharging
+        pluggedIn: root.isCharging
+        ready: root.batteryReady
+        low: root.batteryLow
+        critical: root.batteryCritical
+        baseSize: root.barFontSize * 0.82
+        showPercentageText: true
+        opacity: root.batteryReady ? 1.0 : 0.5
       }
 
       NText {
-        text: root.isConnected ? (root.batteryLevel >= 0 ? root.batteryLevel + "%" : "...") : "N/A"
+        text: "N/A"
         font.pixelSize: root.barFontSize * 0.82
-        color: root.isConnected ? root.batteryColor(root.batteryLevel) : "#666666"
-        visible: root.showPercentage
+        color: Qt.rgba(1,1,1,0.4)
+        visible: !root.showPercentage && !root.isConnected
         Layout.alignment: Qt.AlignVCenter
       }
     }
