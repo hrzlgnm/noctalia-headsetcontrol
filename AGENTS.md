@@ -347,7 +347,7 @@ These are the most frequent issues in AI-generated plugin PRs:
 
 - [ ] Plugin tested with Noctalia Shell (`qs -c noctalia-shell`)
 - [ ] `manifest.json` is valid with all required fields
-- [ ] `manifest.json` version updated related to the changes made
+- [ ] `manifest.json` version is updated to reflect the changes in this PR
 - [ ] `id` matches folder name
 - [ ] `registry.json` is **not** included in the PR (auto-generated)
 - [ ] All user-facing strings use `pluginApi?.tr()` with translations in `i18n/`
