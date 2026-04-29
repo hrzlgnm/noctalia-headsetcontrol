@@ -81,7 +81,7 @@ Item {
     hoverEnabled: true
     cursorShape: Qt.PointingHandCursor
     onClicked: {
-      if (pluginApi) pluginApi.togglePanel(root.screen)
+      if (pluginApi) pluginApi.togglePanel(root.screen, root)
     }
   }
 }
