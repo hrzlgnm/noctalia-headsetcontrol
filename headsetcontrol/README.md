@@ -2,6 +2,8 @@
 
 Control your wireless gaming headset directly from Noctalia Shell using [HeadsetControl](https://github.com/Sapd/HeadsetControl).
 
+![Preview](preview.png)
+
 ## Features
 
 - **Battery monitoring** - Bar widget shows battery with NBattery widget (charging indicator)
