@@ -51,7 +51,7 @@ Item {
         return
       }
       root.isConnected = true
-        root.deviceName = dev.device_name || ""
+        root.deviceName = dev.device || ""
         if (full) {
         var caps = {}
         if (dev.capabilities) {

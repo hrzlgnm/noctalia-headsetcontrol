@@ -84,25 +84,4 @@ Item {
       if (pluginApi) pluginApi.togglePanel(root.screen)
     }
   }
-
-  Rectangle {
-    visible: mouseArea.containsMouse && root.deviceName !== ""
-    anchors.bottom: parent.top
-    anchors.horizontalCenter: parent.horizontalCenter
-    anchors.bottomMargin: 4
-    color: Color.mSurface ?? "#1c1b1f"
-    border.color: Color.mOutline ?? "#49454f"
-    border.width: 1
-    radius: 4
-    width: tooltipText.implicitWidth + 8
-    height: tooltipText.implicitHeight + 6
-
-    NText {
-      id: tooltipText
-      anchors.centerIn: parent
-      text: root.deviceName
-      font.pixelSize: 11
-      color: Color.mOnSurface ?? "#ffffff"
-    }
-  }
 }
