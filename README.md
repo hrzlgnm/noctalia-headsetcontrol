@@ -6,7 +6,7 @@ A collection of plugins for [Noctalia Shell](https://github.com/noctalia-dev/noc
 
 | Plugin | Description | Path |
 |---|---|---|
-| HeadsetControl | Control wireless headsets via HeadsetControl (sidetone, battery, LED, equalizer, chatmix, and more) | [headsetcontrol/](headsetcontrol/) |
+| HeadsetControl | Control wireless headsets via HeadsetControl (sidetone, battery, LED, equalizer, chatmix, and more) | [headsetcontrol](headsetcontrol) |
 
 ## Installation
 
