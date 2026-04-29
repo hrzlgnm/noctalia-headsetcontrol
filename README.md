@@ -8,7 +8,19 @@ A collection of plugins for [Noctalia Shell](https://github.com/noctalia-dev/noc
 |---|---|---|
 | HeadsetControl | Control wireless headsets via HeadsetControl (sidetone, battery, LED, equalizer, chatmix, and more) | [headsetcontrol/](headsetcontrol/) |
 
-See each plugin's directory for installation instructions.
+## Installation
+
+To use plugins from this repository:
+
+1. Open **Noctalia Settings** → **Plugins** → **Sources**
+2. Click **Add custom repository**
+3. Enter a repository name (e.g., "hrzlgnm Plugins")
+4. Add the repository URL:
+   ```
+   https://github.com/hrzlgnm/noctalia-plugins
+   ```
+5. Plugins will now appear in your **Available** tab
+6. Click **Install** on any plugin to enable it
 
 ## Plugin Development
 
