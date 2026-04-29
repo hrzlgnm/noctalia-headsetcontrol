@@ -21,7 +21,7 @@ The script runs automatically via GitHub Actions when:
 - Changes are pushed to the `main` branch
 - Manually triggered via workflow dispatch
 
-See [`.github/workflows/update-registry.yml`](../.github/workflows/update-registry.yml) for workflow details.
+See [`.github/workflows/update-registry.yml`](update-registry.yml) for workflow details.
 
 ## Adding New Plugins
 
